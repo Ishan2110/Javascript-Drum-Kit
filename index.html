@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drum Kit</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div data-key="65" class="contents" id="11">
+            A
+            <div class="inside">
+                CLAP
+            </div>
+        </div>
+        <div data-key="83" class="contents" id="12">
+            S
+            <div class="inside">
+                HIHAT
+            </div>
+        </div>
+        <div data-key="68" class="contents" id="13">
+            D
+            <div class="inside">
+                KICK
+            </div>
+        </div>
+        <div data-key="70" class="contents" id="14">
+            F
+            <div class="inside">
+                OPENHAT
+            </div>
+        </div>
+        <div data-key="71" class="contents" id="15">
+            G
+            <div class="inside">
+                BOOM
+            </div>
+        </div>
+        <div data-key="72" class="contents" id="16">
+            H
+            <div class="inside">
+                RIDE
+            </div>
+        </div>
+        <div data-key="74" class="contents" id="17">
+            J
+            <div class="inside">
+                SNARE
+            </div>
+        </div>
+        <div data-key="75" class="contents" id="18">
+            K
+            <div class="inside">
+                TOM
+            </div>
+        </div>
+        <div data-key="76" class="contents" id="19">
+            L
+            <div class="inside">
+                TINK
+            </div>
+        </div>
+
+        <audio data-key="65" src="clap.wav"></audio>
+        <audio data-key="83" src="hihat.wav"></audio>
+        <audio data-key="68" src="kick.wav"></audio>
+        <audio data-key="70" src="openhat.wav"></audio>
+        <audio data-key="71" src="boom.wav"></audio>
+        <audio data-key="72" src="ride.wav"></audio>
+        <audio data-key="74" src="snare.wav"></audio>
+        <audio data-key="75" src="tom.wav"></audio>
+        <audio data-key="76" src="tink.wav"></audio>
+
+        <!-- <audio id="myAudio">
+        <source src="ride.wav" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio> -->
+
+        <audio src=""></audio>
+
+        <script>
+            window.addEventListener('keydown', function(e) {
+                //    console.log(e.keyCode);
+                const audio = document.querySelector(`audio[data-key='${e.keyCode}']`);
+                const key = document.querySelector(`.contents[data-key='${e.keyCode}']`);
+
+                // console.log(key);
+
+                if (!audio)
+                    return;
+
+                // console.log(audio);
+                audio.currentTime = 0;
+                audio.play();
+
+                key.classList.add('playing');
+
+                // setTimeout(() => {
+                //     key.classList.remove('playing'); 
+                // }, 1000);
+
+            });
+
+            function removeTransition(e) {
+                if (e.propertyName != 'transform') return;
+                this.classList.remove('playing');
+                // e.target.classList.remove('playing');
+            }
+
+            const keys = document.querySelectorAll('.contents');
+            console.log(keys);
+            keys.forEach(key => key.addEventListener('transitionend', removeTransition));
+        </script>
+
+</body>
+
+</html>
